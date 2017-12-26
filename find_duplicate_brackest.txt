@@ -1,0 +1,52 @@
+def main():
+    str=input("\nEnter Expression : ")
+    stc_brc=[]
+    stc_flag=[]
+    for i in str:
+        if i == '(':
+            stc_brc.append('(')
+            stc_flag.append('F')
+        elif i=='+' or i=='-' or i=='/' or i=='*':
+            stc_flag.append('T')
+        elif i == ')':
+            if (len(stc_flag) > 1 and stc_flag[len(stc_flag)-1] == 'F') or len(stc_brc)==0:
+                print("\nDuplicate Bracket Present")
+                return
+            elif len(stc_flag) > 1 and stc_flag[len(stc_flag)-1] == 'T':
+                stc_flag.pop()
+                stc_flag.pop()
+                stc_brc.pop()
+    print("\nNo Duplicate Braces Found")
+
+                
+def main_two():
+    str=input("\nEnter Expression : ")
+    stc_brc=[]
+    for i in str:
+        if i=='+' or i=='-' or i=='/' or i=='*' or i=='(':
+            stc_brc.append(i)
+        elif i == ')':
+            if len(stc_brc)!=0 and stc_brc[len(stc_brc)-1]!='(':
+                flg=True
+                while len(stc_brc)!=0:
+                    if stc_brc.pop()=='(':
+                        flg=False
+                        break
+                if flg:
+                    print("\nDuplicate Bracket Present")
+                    return
+            else:
+                print("\nDuplicate Bracket Present")
+                return
+           
+    print("\nNo Duplicate Bracket Present")
+                
+                
+            
+            
+        
+
+if __name__ == '__main__':
+    while True:
+        #main()
+        main_two()

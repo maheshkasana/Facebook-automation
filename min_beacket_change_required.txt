@@ -1,0 +1,32 @@
+def main():
+    str=input("\nEnter String")
+    print("\nEntered String : ",str)
+    if len(str)%2!=0:
+        print("\nCant be Balanced")
+        return
+    stc=[]
+    for i in str:
+        if i=='(':
+            stc.append(i)
+        elif len(stc)==0 or stc[len(stc)-1]==')':
+            stc.append(i)
+        else:
+            stc.pop()
+    k=0
+    r=0
+    while len(stc)!=0 and stc[len(stc)-1]=='(':
+        k=k+1
+        stc.pop()
+    r = (int(k/2) if k%2==0 else (int(k/2)+1))
+    k=0
+    while len(stc)!=0 and stc[len(stc)-1]==')':
+        k=k+1
+        stc.pop()
+    r = r + (int(k/2) if k%2==0 else (int(k/2)+1))
+    print("\nMinimum Need Change : ",r)    
+
+        
+
+if __name__ == '__main__':
+    while True:
+        main()

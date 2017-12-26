@@ -1,0 +1,58 @@
+def solution_one(n,lst):
+    print("\n\n***Soluton O(n^2), by using Two Forloops")
+    cmp=0
+    for i in range(n):
+        k=0
+        j=i+1
+        while j<n:
+            cmp=cmp+1 
+            if lst[i]<lst[j]:
+                print(lst[j])
+                break
+            j=j+1
+        if j>=n:
+            print("-1")
+    print("\nTotal Comperasion : ",cmp)
+
+def solution_sec(n,lst):
+    print("\n\n***Soluton , by using Two Stacks")
+    stc=list()
+    cmp=0
+    result=list()
+    for i in range(n-1,-1,-1):
+        while len(stc)!=0 and stc[len(stc)-1]<=lst[i]:
+            cmp=cmp+1
+            stc.pop()
+        if len(stc)==0:
+            result.append(-1)
+        else:
+            result.append(stc[len(stc)-1])
+        stc.append(lst[i])
+    result.reverse()
+    print(result)
+    print("\nTotal Comperasion : ",cmp)
+            
+        
+    
+    
+        
+                
+    
+
+
+def main():
+    print("\nNext First Greater Element")
+    n=int(input("\nEnter The N : "))
+    lst=list()
+    for i in range(n):
+        lst.append(int(input("Data : ")))
+    print("\nEntred Data : ")
+    print(lst)
+    solution_one(n,lst)
+    solution_sec(n,lst)
+    #solution_thrd(n,lst)
+    #solution_four(n,lst)
+    
+
+if __name__=="__main__":
+    main()

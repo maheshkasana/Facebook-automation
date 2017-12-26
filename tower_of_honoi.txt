@@ -1,0 +1,62 @@
+class node():
+    def __init__(self):
+        self.n=0
+        self.f=' '
+        self.s=' '
+        self.t=' '
+        self.p=-1
+        
+        
+        
+
+def solve_recursion(n):
+    if n<=0:
+        return
+    stc=[]
+    x=node()
+    x.n=n
+    x.f='A'
+    x.s='B'
+    x.t='c'
+    x.p=0
+    stc.append(x)
+    while len(stc)!=0:
+        x=stc.pop()
+        if x.n==1:
+            print("Move ",x.f," --> ",x.t)
+        else:
+            if x.p==1:
+                print("Move ",x.f," --> ",x.s)
+            else:
+                a=node()
+                a.n=x.n-1
+                a.f=x.s
+                a.s=x.f
+                a.t=x.t
+                a.p=0
+                b=node()
+                b.n=x.n-1
+                b.f=x.f
+                b.s=x.t
+                b.t=x.t
+                b.p=1
+                c=node()
+                c.n=x.n-1
+                c.f=x.f
+                c.s=x.t
+                c.t=x.s
+                c.p=0
+                stc.append(a)
+                stc.append(b)
+                stc.append(c)
+                
+
+def main():
+    print("\nTower of Honoi : ")
+    n=int(input("\nEnter N : "))
+    print("\nRecursion Solution")
+    solve_recursion(n)
+    
+
+if __name__ == "__main__" :
+    main()

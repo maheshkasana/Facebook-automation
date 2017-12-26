@@ -1,0 +1,74 @@
+import pyautogui
+from termcolor import colored
+import pickle
+import os
+import time
+
+
+def get_position():
+    while True:
+        print(input("\nlog"))
+        time.sleep(5)
+        print(mk.position())
+
+def main():
+    dx=422
+    dy=246
+    pyautogui.moveTo(dx,dy)
+    time.sleep(1)
+    cx=600
+    cy=240
+    time.sleep(1)
+    pyautogui.moveTo(cx,cy)
+    bmx=550
+    bmy=200
+    time.sleep(1)
+    pyautogui.moveTo(bmx,bmy)
+    blx=550
+    bly=246
+    time.sleep(5)
+        
+    while True:
+        main_shot=pyautogui.screenshot()
+        pxcolord=main_shot.getpixel((dx,dy))
+        #pyautogui.moveTo(dx,dy)
+        #time.sleep(1)    
+        pxcolorc1=main_shot.getpixel((cx,cy))
+        #pyautogui.moveTo(cx,cy)
+        #time.sleep(1)    
+        pxcolorc2=main_shot.getpixel((cx+10,cy))
+        #pyautogui.moveTo(cx+10,cy)
+        #time.sleep(1)    
+        pxcolorc3=main_shot.getpixel((cx+20,cy))
+        #pyautogui.moveTo(cx+20,cy)
+        #time.sleep(1)    
+        pxcolorc4=main_shot.getpixel((cx+30,cy))
+        #pyautogui.moveTo(cx+30,cy)
+        #time.sleep(1)    
+        lst=[]
+        lst.append(int((pxcolorc1[0]+pxcolorc2[0]+pxcolorc3[0]+pxcolorc4[0])/4))
+        lst.append(int((pxcolorc1[1]+pxcolorc2[1]+pxcolorc3[1]+pxcolorc4[1])/4))
+        lst.append(int((pxcolorc1[2]+pxcolorc2[2]+pxcolorc3[2]+pxcolorc4[2])/4))
+        #pxcolorbm=main_shot.getpixel((bmx,bmy))
+        #pxcolorbl=main_shot.getpixel((blx,bly))
+        #print("\nColor Code")
+        #print("D : ",pxcolord[0],pxcolord[1],pxcolord[2])
+        #print("C : ",pxcolorc[0],pxcolorc[1],pxcolorc[2])
+        #print("BM : ",pxcolorbm[0],pxcolorbm[1],pxcolorbm[2])
+        #print("BL : ",pxcolorbl[0],pxcolorbl[1],pxcolorbl[2])
+        print(pxcolord)
+        print(lst)
+        if pxcolord[0]==lst[0] and pxcolord[1]==lst[1] and pxcolord[2]==lst[2]:
+            pyautogui.press('up')
+        #time.sleep(2)
+        
+        
+        
+        
+        
+        
+    
+
+
+if __name__ == '__main__':
+    main()

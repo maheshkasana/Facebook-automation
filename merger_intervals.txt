@@ -1,0 +1,59 @@
+def merge_by_sort(lst):
+    lst=sorted(lst, key=lambda st:st[0])
+    print("\nSorting Method\nFinal Tuples")
+    i=0
+    while i<len(lst):
+        x=lst[i][0]
+        y=lst[i][1]
+        i=i+1
+        while i<len(lst):
+            if lst[i][0]<=y:
+                y=lst[i][1]
+                i=i+1
+            else:
+                break
+        print(x,"-->",y)
+
+
+def extra_space_merger(lst):
+    print("\nExtra Space, Final Tuples")
+    x=lst[0][0]
+    y=lst[0][1]
+    for i in lst:
+        if i[0]<x :
+            x=i[0]
+        if i[1]>y:
+            y=i[1]
+    stc=[0]*(y-x+2)
+    for i in lst:
+        for j in range(i[0],i[1]+1,1):
+            stc[j-x]=1
+    i=0
+    while i < len(stc):
+        a=0
+        b=0
+        if a==0 and stc[i]==1:
+            a=i+x
+            while stc[i]==1 and i<len(stc) :
+                i=i+1
+            b=i+x-1
+            print(a,"-->",b)
+        else:
+            i=i+1
+        
+
+def main():
+    print("\nMerge The Interval : ")
+    n=int(input("\nEnter N : "))
+    lst=[]
+    print("\nEnter Data")
+    for i in range(n):
+        lst.append((int(input("\nNew Interval\nX : ")),int(input("Y : "))))
+    print("\nEntred Tuples")
+    print(lst)
+    merge_by_sort(lst)
+    extra_space_merger(lst)
+    
+
+if __name__ == "__main__" :
+    main()

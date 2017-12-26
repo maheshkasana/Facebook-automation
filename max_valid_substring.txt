@@ -1,0 +1,46 @@
+def main(str):
+    print(str)
+    stc=[]
+    result=0
+    k=0
+    stc.append(-1)
+    for i in range(len(str)):
+        if str[i]=='(':
+            stc.append(i)
+        else:
+            stc.pop()
+            if len(stc)!=0:
+                result=max(result,i-stc[len(stc)-1])
+            else:
+                stc.append(i)
+    print(result)
+
+def findMaxLen(string):
+    n = len(string)
+    stk = []
+    stk.append(-1)
+    result = 0
+    for i in range(n):
+        if string[i] == '(':
+            stk.append(i)
+        else:    # If closing bracket, i.e., str[i] = ')'
+            stk.pop()
+            if len(stk) != 0:
+                result = max(result, i - stk[len(stk)-1])
+            else:
+                stk.append(i)
+ 
+    return result
+ 
+# Driver program
+def main1():
+    string = "()(()))(()(((())))"
+    main(string)
+ 
+    string = "()"
+    main(string)
+
+        
+
+if __name__ == '__main__':
+    main1()

@@ -1,0 +1,31 @@
+def put_bottom_recursion(y,stc):
+    if len(stc)==0:
+        stc.append(y)
+        return
+    x=stc.pop()
+    put_bottom_recursion(y,stc)
+    stc.append(x)
+    
+
+
+def solve_recursion(stc):
+    if len(stc)==1:
+        return
+    y=stc.pop()
+    solve_recursion(stc)
+    put_bottom_recursion(y,stc)
+    
+    
+    
+
+def main():
+    print("\nReverse Stack By Recursion : ")
+    n=int(input("\nEnter N : "))
+    stc=[i for i in range(1,n+1,1)]
+    print("\nInitial Stack : ",stc)
+    solve_recursion(stc)
+    print("\nAfter Recursion : ",stc)
+    
+
+if __name__ == "__main__" :
+    main()

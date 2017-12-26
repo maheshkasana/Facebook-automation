@@ -1,0 +1,42 @@
+def left_minimum(lst):
+    stc=[]
+    LM=[]
+    for i in lst:
+        if len(stc)==0:
+            LM.append(0)
+        else:
+            while len(stc)!=0 and stc[len(stc)-1]>=i:
+                stc.pop()
+            if len(stc)!=0:
+                LM.append(stc[len(stc)-1])
+            else:
+                LM.append(0)
+        stc.append(i)
+    return LM
+            
+            
+            
+        
+
+def main():
+    lst=list(map(int,input("\nEnter Expression : ").split(' ')))
+    print("\nEntred String : ",lst)
+    lm=left_minimum(lst)
+    lst.reverse()
+    rm=left_minimum(lst)
+    rslt=0
+    for i in range(len(lst)):
+        rslt=max(rslt,abs(lm[i]-rm[i]))
+    print(rslt)
+        
+    
+
+                
+                
+            
+            
+        
+
+if __name__ == '__main__':
+    while True:
+        main()

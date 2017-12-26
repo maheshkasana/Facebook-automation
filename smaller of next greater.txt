@@ -1,0 +1,55 @@
+def right_max(lst):
+    stc=[]
+    LM=[]
+    for i in range(len(lst)-1,-1,-1):
+        if len(stc)==0:
+            LM.append(-1)
+        else:
+            while len(stc)!=0 and lst[stc[len(stc)-1]]<=lst[i]:
+                stc.pop()
+            if len(stc)!=0:
+                LM.append(stc[len(stc)-1])
+            else:
+                LM.append(-1)
+        stc.append(i)
+    return LM
+            
+def right_min(lst):
+    stc=[]
+    LM=[]
+    for i in range(len(lst)-1,-1,-1):
+        if len(stc)==0:
+            LM.append(-1)
+        else:
+            while len(stc)!=0 and lst[stc[len(stc)-1]]>=lst[i]:
+                stc.pop()
+            if len(stc)!=0:
+                LM.append(stc[len(stc)-1])
+            else:
+                LM.append(-1)
+        stc.append(i)
+    return LM
+            
+            
+        
+
+def main():
+    lst=list(map(int,input("\nEnter Expression : ").split(' ')))
+    print("\nEntred String : ",lst)
+    lm=right_max(lst)
+    lm.reverse()
+    rm=right_min(lst)
+    rm.reverse()
+    for i in range(len(lst)):
+        print(rm[lm[i]] if rm[lm[i]]==-1 else lst[rm[lm[i]]],end=' ')
+    
+
+                
+                
+            
+            
+        
+
+if __name__ == '__main__':
+    while True:
+        main()

@@ -1,0 +1,39 @@
+def put_sort_recursion(y,stc):
+    if len(stc)==0:
+        stc.append(y)
+        return
+    x=stc.pop()
+    if x<=y:
+        stc.append(x)
+        stc.append(y)
+        return
+        
+    put_sort_recursion(y,stc)
+    stc.append(x)
+    
+
+
+def solve_recursion(stc):
+    if len(stc)==1:
+        return
+    y=stc.pop()
+    solve_recursion(stc)
+    put_sort_recursion(y,stc)
+    
+    
+    
+
+def main():
+    print("\nSort Stack By Recursion : ")
+    n=int(input("\nEnter N : "))
+    stc=[]
+    print("\nEnter Data")
+    for i in range(n):
+        stc.append(int(input("Enter : ")))
+    print("\nInitial Stack : ",stc)
+    solve_recursion(stc)
+    print("\nAfter Recursion : ",stc)
+    
+
+if __name__ == "__main__" :
+    main()
