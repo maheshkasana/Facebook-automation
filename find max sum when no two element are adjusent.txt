@@ -1,0 +1,60 @@
+count = 0
+def max_sum_with_memorize(lst, ind, ln):
+    global count
+    if ind >= ln:
+        return 0
+    count += 1
+    return max(lst[ind]+max_sum_with_memorize(lst,ind+2,ln), max_sum_with_memorize(lst,ind+1,ln))
+
+
+
+memorize = []
+
+
+def max_sum(lst, ind, ln):
+    global count
+    if ind >= ln:
+        return 0
+    count += 1
+    global memorize
+    if memorize[ind]!= -1:
+        return memorize[ind]
+    memorize[ind] = max(lst[ind]+max_sum(lst,ind+2,ln), max_sum(lst,ind+1,ln))
+    
+def max_sum_thrd(lst,n):
+    inc, exc, exc_n = 0, 0, 0
+    inc = lst[n-1]
+    for i in range(n-2,-1,-1):
+        exc_n = max(inc, exc)
+        inc = exc + lst[i]
+        exc = exc_n
+    print("\nMax Sum : ",max(inc, exc))
+
+def max_sum_no_two_adj():
+    lst = list(map(int, input("\nEnter The Array Elements : ").split(', ')))
+    n = len(lst)
+    global memorize
+    del memorize[:]
+    memorize = [-1 for i in range(n)]
+    #Solution with Memorize
+    #for i in range(n-1, -1, -1):
+        #max_sum(lst,i,n)
+    #print("Max Sum : ", memorize[0])
+
+    #normal Solution
+    #print("Max Sum : ", max(max_sum_with_memorize(lst,0,n), max_sum_with_memorize(lst, 1, n)))
+    #print(memorize)
+
+    #normal Solution O(n)
+    max_sum_thrd(lst,n)
+    global count
+    print("total Calls : ",count)
+    
+
+
+
+    
+if __name__ == '__main__':
+    while True:
+        max_sum_no_two_adj()
+

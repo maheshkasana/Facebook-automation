@@ -1,0 +1,82 @@
+class node():
+  def __init__(self):
+    self.data = -1
+    self.left = None
+    self.right = None
+    self.lst = -1
+
+def create_BST(root,data):
+  if root == None:
+    tmp = node()
+    tmp.data = data
+    tmp.left, tmp.right =None, None
+    return tmp
+  if root.data > data:
+    root.left = create_BST(root.left,data)
+  else:
+    root.right = create_BST(root.right,data)
+  return root
+
+def count_points(root, l, r):
+  if root == None:
+    return 0
+  if root.lst != -1:
+    return root.lst
+  c = 0
+  if root.data >=l and root.data<=r:
+    c = 1
+    c = c + count_points(root.left, l, root.data-1)
+    c = c + count_points(root.right, root.data+1, r)
+    root.lst = c
+    return c
+  if root.data > r:
+    return count_points(root.left, l, r)
+  if root.data < l:
+    return count_points(root.right, l, r)
+  return 0
+
+  
+    
+
+
+def main():
+  t = int(input())
+  while t>0:
+    t -= 1
+    seg = int(input())
+    seg_list = []
+    for i in range(seg):
+      tup = list(map(int, input().split(' ')))
+      seg_list.append(tup)
+    qur = int(input())
+    for a in range(qur):
+      mqx = list(map(int, input().split(' ')))
+      root = None
+      for i in range(1, mqx[0]+1,1):
+        root = create_BST(root,mqx[i])
+      t_q = 0
+      for j in range(seg):
+        c_p = count_points(root, seg_list[j][0], seg_list[j][1])
+        if c_p % 2 == 1:
+          t_q +=1
+      print(t_q)
+        
+      
+    
+    
+if __name__ == '__main__':
+    main()
+
+        #print('\n\n')
+        #print("test : ",t)
+        #print("Seg : ",seg)
+        #for i in range(seg):
+        #  print("[",seg_list[i][0],',',seg_list[i][1],"]",end='\n')
+        #print("Q : ",qur)
+        #for i in range(qur):
+        #  print(mxlist[i])
+        #for i in range(seg):
+        #for j in range(seg):
+          #print(mat[i][j],end=' ')
+        #print("")
+      

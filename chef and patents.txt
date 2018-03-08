@@ -1,0 +1,62 @@
+
+
+def main__temp():
+  t = int(input())
+  while t>0:
+    t -= 1
+    val = list(map(int, input().split(' ')))
+    str = input()
+    te, to = 0, 0
+    for i in str:
+      if i =='E':
+        te += 1
+      if i == 'O':
+        to += 1
+    em, om = 0, 0
+    if val[1]%2 == 0:
+      em=int(val[1]/2)
+      om = em
+    else:
+      em = int((val[1]-1)/2)
+      om = em+1
+    ttp = em * min(val[2], te) + om * min(val[2], to)
+    if ttp >= val[0]:
+      print("yes")
+    else:
+      print("no")
+
+
+
+def main():
+  t = int(input())
+  while t>0:
+    t -= 1
+    val = list(map(int, input().split(' ')))
+    str = input()
+    te, to = 0, 0
+    for i in str:
+      if i =='E':
+        te += 1
+      if i == 'O':
+        to += 1
+    em, om = 0, 0
+    if val[1]%2 == 0:
+      em=int(val[1]/2)
+      om = em
+    else:
+      em = int((val[1]-1)/2)
+      om = em+1
+    ttp = min(val[2]*em, te) + min(val[2]*om, to)
+    if ttp >= val[0]:
+      print("yes")
+    else:
+      print("no")
+
+    
+if __name__ == '__main__':
+    main()
+
+
+
+
+

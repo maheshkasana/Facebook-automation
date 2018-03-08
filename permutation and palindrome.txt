@@ -1,0 +1,45 @@
+
+def main():
+  t = int(input())
+  while t>0:
+    t -= 1
+    arr = list(input())
+    my_dict = dict()
+    for i in range(len(arr)):
+      if arr[i] not in my_dict:
+        my_dict[arr[i]] = []
+      my_dict[arr[i]].append(i)
+    tmp = [-1 for i in range(len(arr))]
+    i, j = 0, len(arr)-1
+    #print(i, j, k)
+    mid = []
+    while len(my_dict)>0:
+      key , value = my_dict.popitem()
+      x,y=0,len(value)-1
+      while x<y:
+        tmp[i],tmp[j]=value[x],value[y]
+        i+=1
+        j-=1
+        x+=1
+        y-=1
+      if x<=y:
+        mid.append(value[x])
+    if len(mid) <= 1:
+      if len(mid)==1:
+        tmp[i] = mid[0]
+      for i in range(len(tmp)):
+        print(tmp[i]+1, end=' ') 
+      print(end='\n')
+    else:
+      print(-1)
+      
+
+
+    
+if __name__ == '__main__':
+    main()
+
+
+
+
+

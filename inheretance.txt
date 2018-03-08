@@ -1,0 +1,50 @@
+class state(object):
+    state_name="RJ"
+    def __init__(self,*argc):
+        print("State __init__")
+        self.state_name=argc[3]
+    def add_state(self,str1):
+        self.state_name=str1
+
+class dist(state):
+    dist_name="DAUSA"
+    def __init__(self,*argc):
+        print("Dist __init__")
+        self.dist_name=argc[2]
+        super(dist,self).__init__(*argc)
+        
+    def add_dist(self,str1):
+        self.dist_name=str1
+
+class vill(dist):
+    vill_name="BPCITY"
+    def __init__(self,*argc):
+        print("Vill __init__")
+        self.vill_name=argc[1]
+        super(vill,self).__init__(*argc)
+    def add_vill(self,str1):
+        self.vill_name=str1
+
+class Address(vill):
+    Address=""
+    def __init__(self,*argc):
+        print("Address __init__")
+        self.Address=argc[0]
+        super(Address,self).__init__(*argc)
+        
+    def add_address(self,str1):
+        self.Address=str1
+        
+    def print_add(self):
+        print("Yo Kasana, Address : {0}, Vill : {1}, Dist : {2}, State : {3}".format(self.Address,self.vill_name,self.dist_name,self.state_name))
+
+if __name__=='__main__':
+    add=Address("Winterfell Main","Bhojpura","Dausa","Rajasthan")
+    #add.add_address("Winterfell")
+    #add.add_vill("Sikandra")
+    #add.add_dist("Dausa")
+    #add.add_state("Rajasthan")
+    add.print_add()
+
+
+        

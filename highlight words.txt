@@ -1,0 +1,42 @@
+
+def main():
+  t = int(input())
+  while t>0:
+    tt = 0
+    t -= 1
+    str = input()
+    tmp = [0,0,0,0]
+    for i in range(len(str)):
+      if str[i] == 'c':
+        tmp[0] += 1
+      if str[i] == 'h':
+        tmp[1] += 1
+      if str[i] == 'e':
+        tmp[2] += 1
+      if str[i] == 'f':
+        tmp[3] += 1
+      if i>3:
+        if str[i-4] == 'c':
+          tmp[0] -= 1
+        if str[i-4] == 'h':
+          tmp[1] -= 1
+        if str[i-4] == 'e':
+          tmp[2] -= 1
+        if str[i-4] == 'f':
+          tmp[3] -= 1
+      if tmp[0]>0 and tmp[1]>0 and tmp[2]>0 and tmp[3]>0:
+        tt += 1
+    if tt>0:
+      print('lovely ',tt)
+    else:
+      print('normal')
+        
+      
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+

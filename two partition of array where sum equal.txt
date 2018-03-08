@@ -1,0 +1,29 @@
+def recur_func(lst,n, sum_):
+    if sum_ == 0:
+        return True
+    if n<0 :
+        return False
+    return True if recur_func(lst,n-1, sum_) or recur_func(lst,n-1, sum_-lst[n]) else False
+    
+
+def sum_partition():
+    print("\nSum Partition ")
+    lst=list(map(int,input("Enter Elements : ").split(' ')))
+    sum_ = sum(lst)
+    if sum_ % 2 != 0:
+        print("Not Possible")
+        return
+    sum_ = int(sum_ / 2)
+    if recur_func(lst,len(lst)-1, sum_):
+        print("Possible")
+    else:
+        print("Not Possible")
+        
+    
+           
+                
+
+
+if __name__ == '__main__':
+    while True:
+        sum_partition()

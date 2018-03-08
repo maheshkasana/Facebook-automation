@@ -1,0 +1,23 @@
+def max_min():
+    print("\nMax, Min, Max_2, Min_2 Arrange ")
+    lst=list(map(int,input("Enter Elements : ").split(' ')))
+    max_ind = len(lst)-1
+    min_ind =   0
+    max_val = lst[max_ind]+1
+    for i in range(len(lst)):
+        if i%2 == 0:
+            lst[i] += (lst[max_ind]%max_val)*max_val
+            max_ind -= 1
+        else:
+            lst[i] += (lst[min_ind]%max_val)*max_val
+            min_ind += 1
+    print(lst)
+    for i in range(len(lst)):
+        lst[i] = int(lst[i]/max_val)
+    print("Rearranged Array : ",lst)
+        
+
+
+if __name__ == '__main__':
+    while True:
+        max_min()

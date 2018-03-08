@@ -1,0 +1,46 @@
+class queue_temp:
+    def __init__(self):
+        self.que=[]
+
+    def push_data(self,data):
+        self.que.append(data)
+
+    def print_que_data(self):
+        print("\nQueue Data : ")
+        l=len(self.que)
+        for i in range(l-1,-1,-1):
+            print(self.que[i])
+
+    def pop_data(self):
+        data=self.que[0]
+        self.que.remove(data)
+        return data
+    
+
+def main():
+    print("\nWelcome to Queue operations : ")
+    que = queue_temp()
+    while True:
+        print("\nOptions : \n0 : Exit\n1 : Push\n2 : Pop\n3 : Print_queue Data\n")
+        ch=int(input("\nEnter Option : "))
+        if ch==0:
+            break
+        elif ch==1:
+            data=int(input("\nEnter Data : "))
+            que.push_data(data)
+        elif ch==2:
+            if len(que.que)==0:
+                print("\nQueue is Empty")
+            else:
+                print(que.pop_data())
+        elif ch==3:
+            if len(que.que)==0:
+                print("\nQueue is Empty")
+            else:
+                que.print_que_data()
+            
+            
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,63 @@
+def partition(arr,low,high):
+    i = ( low-1 )
+    pivot = arr[high]
+    for j in range(low , high):
+        if   arr[j] <= pivot:
+            i = i+1
+            arr[i],arr[j] = arr[j],arr[i] 
+    arr[i+1],arr[high] = arr[high],arr[i+1]
+    return ( i+1 )
+
+def quickSort(arr,k,low,high):
+    if low < high:
+        pi = partition(arr,low,high)
+        if pi == k:
+            return arr[pi]
+        if pi>k:
+            return quickSort(arr,k, low, pi-1)
+        else:
+            return quickSort(arr,k, pi+1, high)
+    return -1
+
+
+def modified_quick_sort(lst,k,s,l):
+    if s>l:
+        return -1
+    p, i, j =s, s, l
+    while i<=j :
+        while i<= j and lst[i]< lst[p]:
+            i += 1
+        while i<=j and lst[j]>=lst[p]:
+            j -= 1
+        if i<j:
+            lst[i], lst[j] = lst[j], lst[i]
+    if j>=0 : 
+        lst[p], lst[j] = lst[j], lst[p]
+    if j == k:
+        return lst[j]
+    if j>k:
+        return modified_quick_sort(lst,k,s,j-1)
+    else:
+        return modified_quick_sort(lst,k,j+1,l)
+        
+        
+        
+        
+        
+    
+
+    
+def k_th_smallest():
+    lst = list(map(int, input("\nEnter The Array Elements : ").split(' ')))
+    k = int(input("\nEnter K : "))
+    print("Kth Smallest : ",quickSort(lst,k,0,len(lst)-1))
+    
+
+
+
+    
+if __name__ == '__main__':
+    while True:
+        k_th_smallest()
+
+

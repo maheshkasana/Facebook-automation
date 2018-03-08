@@ -1,0 +1,29 @@
+def max_prod_subarray():
+    print("\nmax_prod_subarray ")
+    lst=list(map(int,input("Enter Elements : ").split(', ')))
+    print(lst)
+    max_s = 0
+    temp_s = 1
+    flag = False
+    for i in range(len(lst)):
+        if lst[i] == 0:
+            flag = True
+        else:
+            if flag == True:
+                temp_s = lst[i]
+                flag = False
+            else:
+                temp_s *= lst[i]
+            if temp_s > max_s:
+                max_s = temp_s
+    print(max_s)
+            
+        
+    
+            
+                
+
+
+if __name__ == '__main__':
+    while True:
+        max_prod_subarray()

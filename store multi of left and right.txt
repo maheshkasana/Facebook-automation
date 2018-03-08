@@ -1,0 +1,28 @@
+def rearrange_array():
+    lst=list(map(int,input("Enter Elements : ").split(', ')))
+    max_el=0
+    n = len(lst)
+    for i in range(n):
+        if i == 0:
+            if lst[i]*lst[i+1] > max_el:
+                max_el = lst[i]*lst[i+1]
+        elif i == n-1:
+            if lst[i]*lst[i-1] > max_el:
+                max_el = lst[i]*lst[i-1]
+        else:
+            if lst[i+1]*lst[i-1] > max_el:
+                max_el = lst[i+1]*lst[i-1]
+    
+    for i in range(n):
+        if i == 0:
+            lst[i] += (lst[i]*lst[i+1])*max_el
+        elif i == n-1:
+            lst[i] += (lst[i]*(lst[i-1]%max_el))*max_el
+        else:
+            lst[i] += (lst[i+1]*(lst[i-1]%max_el))*max_el
+
+    print([int(lst[i]/max_el) for i in range(len(lst))])
+                
+if __name__ == '__main__':
+    while True:
+        rearrange_array()

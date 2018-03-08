@@ -1,0 +1,244 @@
+def BFS_Matrix_Undirected(mat, n):
+    que = []
+    visit = [0 for i in range(n)]
+    s = int(input("Enter Starting Node : "))
+    if s<0 or s>=n:
+        print("Wrong input\n")
+        return
+    print("BFS : ",end= ' ')
+    que.append(s)
+    visit[s] = 1
+    while len(que)!=0:
+        x = que[0]
+        que.pop(0)
+        print(x,end=',')
+        for i in range(n):
+            if mat[x][i]!=0 and visit[i] == 0:
+                que.append(i)
+                visit[i] = 1
+        
+            
+
+def DFS_Matrix_Undirected(mat, n):
+    que = []
+    visit = [0 for i in range(n)]
+    s = int(input("Enter Starting Node : "))
+    if s<0 or s>=n:
+        print("Wrong input\n")
+        return
+    print("DFS : ",end= ' ')
+    que.append(s)
+    visit[s] = 1
+    while len(que)!=0:
+        x = que[len(que)-1]
+        que.pop(len(que)-1)
+        print(x,end=',')
+        for i in range(n):
+            if mat[x][i]!=0 and visit[i] == 0:
+                que.append(i)
+                visit[i] = 1
+        
+        
+
+
+
+def main_matrix_undirected():
+    print("Undirected Graph Implementation by Adjacency Matrix")
+    n = int(input("Enter Node's : "))
+    mat = [[0 for i in range(n)] for j in range(n)]
+    edg = int(input("Enter Edge's : "))
+    for i in range(edg):
+        x = int(input("Enter Edge X -- Y\nX : "))
+        y = int(input("Y : "))
+        mat[x][y] = 1
+        mat[y][x] = 1
+    while True:
+        ch = int(input("\nExit : 0\nBFS  : 1\nDFS  : 2\n"))
+        if ch == 0:
+            break
+        if ch == 1:
+            BFS_Matrix_Undirected(mat,n)
+        if ch == 2:
+            DFS_Matrix_Undirected(mat,n)
+            
+        
+
+def main_matrix_directed():
+    print("directed Graph Implementation by Adjacency Matrix")
+    n = int(input("Enter Node's : "))
+    mat = [[0 for i in range(n)] for j in range(n)]
+    edg = int(input("Enter Edge's : "))
+    for i in range(edg):
+        x = int(input("Enter Edge X --> Y\nX : "))
+        y = int(input("Y : "))
+        mat[x][y] = 1
+    while True:
+        ch = int(input("\nExit : 0\nBFS  : 1\nDFS  : 2\n"))
+        if ch == 0:
+            break
+        if ch == 1:
+            BFS_Matrix_Undirected(mat,n)
+        if ch == 2:
+            DFS_Matrix_Undirected(mat,n)
+
+
+
+        
+def main_matrix():
+    ch = int(input("\nImplement Graph by Matrix \n1 : UnDirected Graphs\n2 : Directed Graphs\n"))
+    if ch == 1:
+        main_matrix_undirected()
+    if ch == 2:
+        main_matrix_directed()
+
+class node:
+    def __init__(self,data):
+        self.data = data
+        self.next_node = None
+    
+
+
+def BFS_List_Undirected(mat,n):
+    visit = [0 for i in range(n)]
+    que = []
+    s = int(input("Enter Starting Node : "))
+    if s<0 or s>= n :
+        print("\nWorng Input")
+        return
+    que.append(s)
+    visit[s] = 1
+    print("BFS : ",end="")
+    while len(que)!= 0:
+        ind = que[0]
+        que.pop(0)
+        print(ind,end= ',')
+        tmp = mat[ind]
+        while tmp!=None:
+            if visit[tmp.data] == 0:
+                que.append(tmp.data)
+                visit[tmp.data] = 1
+            tmp = tmp.next_node
+            
+
+def DFS_List_Undirected(mat,n):
+    visit = [0 for i in range(n)]
+    que = []
+    s = int(input("Enter Starting Node : "))
+    if s<0 or s>= n :
+        print("\nWorng Input")
+        return
+    que.append(s)
+    visit[s] = 1
+    print("DFS : ",end="")
+    while len(que)!= 0:
+        ind = que[len(que)-1]
+        que.pop(len(que)-1)
+        print(ind,end= ',')
+        tmp = mat[ind]
+        while tmp!=None:
+            if visit[tmp.data] == 0:
+                que.append(tmp.data)
+                visit[tmp.data] = 1
+            tmp = tmp.next_node
+            
+
+        
+    
+
+def main_list_undirected():
+    print("Undirected Graph Implementation by Adjacency List")
+    n = int(input("Enter Node's : "))
+    mat = [None for i in range(n)]
+    edg = int(input("Enter Edge's : "))
+    for i in range(edg):
+        x = int(input("Enter Edge X -- Y\nX : "))
+        y = int(input("Y : "))
+        if mat[x] == None:
+            mat[x] = node(y)
+        else:
+            tmp = mat[x]
+            while tmp.next_node != None:
+                tmp = tmp.next_node
+            tmp.next_node = node(y)
+
+        if mat[y] == None:
+            mat[y] = node(x)
+        else:
+            tmp = mat[y]
+            while tmp.next_node != None:
+                tmp = tmp.next_node
+            tmp.next_node = node(x)
+    print("Adjcency List ")
+    for i in range(n):
+        tmp = mat[i]
+        print(i,end=" : ")
+        while tmp!= None:
+            print(tmp.data,end= '<-->')
+            tmp = tmp.next_node
+        print("/")
+    
+    while True:
+        ch = int(input("\nExit : 0\nBFS  : 1\nDFS  : 2\n"))
+        if ch == 0:
+            break
+        if ch == 1:
+            BFS_List_Undirected(mat,n)
+        if ch == 2:
+            DFS_List_Undirected(mat,n)
+
+
+
+def main_list_directed():
+    print("directed Graph Implementation by Adjacency List")
+    n = int(input("Enter Node's : "))
+    mat = [None for i in range(n)]
+    edg = int(input("Enter Edge's : "))
+    for i in range(edg):
+        x = int(input("Enter Edge X --> Y\nX : "))
+        y = int(input("Y : "))
+        if mat[x] == None:
+            mat[x] = node(y)
+        else:
+            tmp = mat[x]
+            while tmp.next_node != None:
+                tmp = tmp.next_node
+            tmp.next_node = node(y)
+    print("Adjcency List ")
+    for i in range(n):
+        tmp = mat[i]
+        print(i,end=" : ")
+        while tmp!= None:
+            print(tmp.data,end= ' --> ')
+            tmp = tmp.next_node
+        print("/")
+    
+    while True:
+        ch = int(input("\nExit : 0\nBFS  : 1\nDFS  : 2\n"))
+        if ch == 0:
+            break
+        if ch == 1:
+            BFS_List_Undirected(mat,n)
+        if ch == 2:
+            DFS_List_Undirected(mat,n)
+
+
+
+
+def main_list():
+    ch = int(input("\nImplement Graph by Adjacency List \n1 : UnDirected Graphs\n2 : Directed Graphs\n"))
+    if ch == 1:
+        main_list_undirected()
+    if ch == 2:
+        main_list_directed()
+
+
+
+if __name__ == "__main__":
+    while True:
+        ch = int(input("\n\n\n** Implement Graphs by\n0 : Exit\n1 : Adjacency Matrix\n2 : Adjacency List\n"))
+        if ch == 0:
+            break
+        if ch == 1:
+            main_matrix()
+        if ch == 2:
+            main_list()

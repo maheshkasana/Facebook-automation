@@ -1,0 +1,30 @@
+--insert into Customers (CustomerName, ContactName, Address, City, PostalCode, Country) Values ("Mahesh", "Kasana", "Rajasthan Dausa", "Bhojpura", 303304, "INDIA");
+--select * from Customers where CustomerName = "Mahesh"
+--select * from Categories;
+--select * from Employees;
+--select * from OrderDetails;
+--select * from Suppliers  where Country = "UK" or City = "Osaka" and PostalCode = "545" or SupplierID = 10;
+--select DISTINCT Country  from Suppliers where Not Country = "UK";
+--select *  from OrderDetails order by OrderID DESC, ProductID DESC, Quantity ASC;
+--select * from Shippers;
+--select * from Products;
+--select * from Products;
+--select *  from OrderDetails;
+--insert into Products (SupplierID, CategoryID, Price) values (select OrderID, ProductID, Quantity from OrderDetails);
+--create table Mkasana as select * from Products;
+--
+--update Mkasana set ProductName = "Pooja";
+--select * from Products where price = 18;
+--delete from Mkasana;
+--select * from Mkasana;
+--select * from Products order by Price DESC limit 1;
+--select TOP 1 * from Products order by Price DESC;
+--select MIN(price) as chutiyalonda, MAX(price) as chodlonda from Products; 
+--select SUM(price) as Chutiya, AVG(price) as Chodlonda, COUNT(price) as Kasana  from Products;
+--select * from Products where ProductName like 'C_%_%_%_%_';
+--select * from Products where price in (select CustomerID from Orders ) order by Price;
+--select CustomerID from Orders order by CustomerID;
+--select  CONCAT(LastName , "," , FirstName) AS FullName FROM Employees;
+--select * from orders;
+--SELECT * FROM ((Orders INNER JOIN Customers on Orders.CustomerID = Customers.CustomerID) INNER JOIN OrderDetails on OrderDetails.OrderID = Orders.OrderID);
+select * from Orders where EXISTS (select  * from Employees where EmployeesID = 2);

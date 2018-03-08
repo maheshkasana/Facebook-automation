@@ -1,0 +1,71 @@
+class node():
+    def __init__(self):
+        self.data = 0
+        self.x, self.y = -1,-1
+        self.left, self.right = None, None
+        
+def create_segment_tree(lst, x, y):
+    if y<x:
+        return None, 0
+    if x == y:
+        temp = node()
+        temp.data = lst[x]
+        temp.x,temp.y = x, y   
+        return temp, temp.data
+    k = int((x+y)/2)
+    temp = node()
+    temp.x, temp.y = x, y
+    temp.left, ls = create_segment_tree(lst, x, k)
+    temp.right, rs = create_segment_tree(lst, k+1, y)
+    temp.data = ls+rs
+    return temp, temp.data
+
+def prefix_print_tree(temp):
+    if temp == None:
+        return
+    prefix_print_tree(temp.left)
+    print("Data : %3d, X : %3d, Y : %3d"%(temp.data,temp.x,temp.y))
+    prefix_print_tree(temp.right)
+
+
+def by_segment_tree(root,x,y):
+    if x>y or root == None:
+        return 0
+    if root.x == x and root.y == y:
+        return root.data
+    k = int((root.x + root.y)/2)
+    if x<=k and y<=k:
+        return by_segment_tree(root.left,x,y)
+    if x>k and y>k:
+        return by_segment_tree(root.right,x,y)
+    return by_segment_tree(root.left,x,k) + by_segment_tree(root.right,k+1,y)
+
+def by_two_loops(lst,x,y):
+    sum_ = 0
+    for i in range(x,y+1,1):
+        sum_+=lst[i]
+    return sum_
+
+def sum_of_range():
+    lst = list(map(int, input("\nEnter The Array Elements : ").split(', ')))
+    t = int(input("Enter Test T : "))
+    root = None
+    root, total_sum = create_segment_tree(lst,0,len(lst)-1)
+    #prefix_print_tree(root)
+    while t!=0:
+        x = int(input("\nEnter X : "))
+        y = int(input("Enter y : "))
+        if y < x or y>=len(lst):
+            print("Invalid Query")
+            pass
+        else:
+            #print("\nLoop O(N*N) : Sum of Range %d --> %d : %d"%(x,y,by_two_loops(lst,x,y)))
+            print("\nSegment Tree O(NLogN): Sum of Range %d --> %d : %d"%(x,y,by_segment_tree(root,x,y)))
+            
+
+
+
+    
+if __name__ == '__main__':
+    while True:
+        sum_of_range()

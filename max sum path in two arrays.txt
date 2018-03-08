@@ -1,0 +1,39 @@
+def main():
+    arr_one = list(map(int, input("Enter Array ONE Elements : ").split(', ')))
+    arr_two = list(map(int, input("Enter Array TWO Elements : ").split(', ')))
+    ln1 = len(arr_one)
+    ln2 = len(arr_two)
+    max_sum = 0
+    i, j = 0, 0
+    il, jl= 0, 0
+    sf, ss =0, 0
+    while i<ln1 and j < ln2:
+        if arr_one[i] == arr_two[j]:
+            max_sum += max(sf-il, ss- jl)
+            il = sf
+            jl = ss
+            sf += arr_one[i]
+            ss += arr_two[j]
+            i += 1
+            j += 1
+        else:
+            while i < ln1 and j < ln2 and arr_one[i] < arr_two[j]:
+                sf += arr_one[i]
+                i += 1
+            while i < ln1 and j < ln2 and arr_one[i] > arr_two[j]:
+                ss += arr_two[j]
+                j += 1
+    
+    while i<ln1:
+        sf += arr_one[i]
+        i += 1
+    while j<ln2:
+        ss += arr_two[j]
+        j += 1
+    max_sum += max(sf-il, ss- jl)
+    print("\nMax Sum Path : ",max_sum)
+
+    
+if __name__ == "__main__":
+    while True:
+        main()

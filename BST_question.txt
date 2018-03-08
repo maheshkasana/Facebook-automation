@@ -1,0 +1,348 @@
+class node():
+    def __init__(self):
+        self.data = -1
+        self.left = None
+        self.right = None
+        self.hl, self.hr = 0, 0
+
+def add_node_tree_ask(temp,data):
+    if temp == None:
+        temp = node()
+        temp.data = data
+        return temp
+    else:
+        print("LRFT_CHILD : 1\tRIGHT_CHILD : 2 OF NODE : ",temp.data)
+        ch = int(input())
+        if ch == 1:
+            temp.left =  add_node_tree_ask(temp.left, data)
+        else:
+            temp.right =  add_node_tree_ask(temp.right, data)
+    return temp
+
+    
+def create_Binary_tree_ask():
+    root = None
+    temp = None
+    n = int(input("\nTotal Nodes' : "))
+    while n>0:
+        data = int(input("Enter Data : "))
+        root = add_node_tree_ask(root, data)            
+        n -= 1
+    return root
+
+
+def print_preorder_tree(root):
+    if root == None:
+        return
+    print(root.data,end='\t')
+    print_preorder_tree(root.left)
+    print_preorder_tree(root.right)
+
+
+def print_inorder_tree(root):
+    if root == None:
+        return
+    print_inorder_tree(root.left)
+    print(root.data,end='\t')
+    print_inorder_tree(root.right)
+
+def print_postorder_tree(root):
+    if root == None:
+        return
+    print_postorder_tree(root.left)
+    print_postorder_tree(root.right)
+    print(root.data,end='\t')
+    
+
+
+def print_tree(root):
+    if root == None:
+        print("****Empty Tree****")
+        return
+    print("\nPre Order Traversal : ")
+    print_preorder_tree(root)
+    print("\nIn Order Traversal : ")
+    print_inorder_tree(root)
+    print("\nPost Order Traversal : ")
+    print_postorder_tree(root)
+
+
+def add_node_delimiter(arr, ind, n):
+    if ind>= n or arr[ind] == -1:
+        ind += 1
+        return None, ind
+    else:
+        temp = node()
+        temp.data = arr[ind]
+        ind += 1
+        temp.left, ind =add_node_delimiter(arr, ind, n)
+        temp.right, ind =add_node_delimiter(arr, ind, n)
+        return temp, ind
+    
+    
+
+
+def create_Binary_tree_delimiter():
+    inorder_array = list(map(int, input("\nEnter Inorder : ").split(' ')))
+    root, ind = add_node_delimiter(inorder_array,0, len(inorder_array))
+    return root
+
+
+
+def add_node_heap_form_array(arr, ind, n):
+    if ind >= n or arr[ind] == -1:
+        return None
+    else:
+        temp = node()
+        temp.data = arr[ind]
+        temp.left = add_node_heap_form_array(arr, 2*ind+1, n)
+        temp.right =add_node_heap_form_array(arr, 2*ind+2, n)
+        return temp
+    
+
+def create_Binary_tree_heap_form_array():
+    arr = list(map(int, input("\nEnter Array : ").split(' ')))
+    root = add_node_heap_form_array(arr, 0, len(arr))
+    return root
+
+
+def binary_search(arr , data, s, l):
+    if s>l:
+        return -1
+    if s==l:
+        if arr[s] == data:
+            return s
+        else:
+            return -1
+    k = int((s+l)/2)
+    if arr[k] == data:
+        return k
+    if arr[k] > data:
+        return binary_search(arr , data, s, k-1)
+    else:
+        return binary_search(arr , data, k+1, l)
+        
+
+
+
+def add_node_in_pre_order(in_ord, pre_ord, ii,ij, pi, pj):
+    if ii > ij or pi > pj:
+        return None
+    temp = node()
+    temp.data = pre_ord[pi]
+    k = binary_search(in_ord, pre_ord[pi], ii, ij)
+    if k == -1:
+        return None
+    le = k - ii
+    temp.left = add_node_in_pre_order(in_ord, pre_ord, ii, k-1, pi+1, pi+le)
+    temp.right = add_node_in_pre_order(in_ord, pre_ord, k+1, ij,pi+1+le, pj)
+    return temp
+    
+    
+def create_Binary_tree_in_pre_order():
+    in_ord = list(map(int, input("\nEnter Inorder : ").split(' ')))
+    pre_ord = list(map(int, input("Enter Preorder : ").split(' ')))
+    n = len(in_ord)
+    if n != len(pre_ord):
+        print("\nEnter Proper In & Pre order Traversals")
+        return None
+    return add_node_in_pre_order(in_ord, pre_ord, 0,n-1, 0, n-1)
+    
+    
+
+
+
+def add_node_in_post_order(in_ord, post_ord, ii,ij, pi, pj):
+    if ii > ij or pi > pj:
+        return None
+    temp = node()
+    temp.data = post_ord[pj]
+    k = binary_search(in_ord, post_ord[pj], ii, ij)
+    if k == -1:
+        return None
+    le = k - ii
+    temp.left = add_node_in_post_order(in_ord, post_ord, ii, k-1, pi, pi+le-1)
+    temp.right = add_node_in_post_order(in_ord, post_ord, k+1, ij,pi+le, pj-1)
+    return temp
+    
+    
+def create_Binary_tree_in_post_order():
+    in_ord = list(map(int, input("\nEnter Inorder : ").split(' ')))
+    post_ord = list(map(int, input("Enter Postorder : ").split(' ')))
+    n = len(in_ord)
+    if n != len(post_ord):
+        print("\nEnter Proper In & Post order Traversals")
+        return None
+    return add_node_in_post_order(in_ord, post_ord, 0,n-1, 0, n-1)
+    
+
+
+def add_node_in_level_order(in_ord, level_ord, ii,ij, pi, pj):
+    if ii > ij or pi > pj:
+        return None
+    min_in = len(in_ord) + 2
+    min_lev = min_in
+    for i in range(ii,ij+1,1):
+        for j in range(pi,pj+1,1):
+            if in_ord[i] == level_ord[j]:
+                if min_lev > j:
+                    min_in = i
+                    min_lev = j
+    tmp = node()
+    tmp.data = in_ord[min_in]
+    tmp.left = add_node_in_level_order(in_ord, level_ord, ii,min_in-1, pi, pj)
+    tmp.right = add_node_in_level_order(in_ord, level_ord,min_in+1, ij, pi, pj)
+    return tmp
+
+    
+
+
+
+def create_Binary_tree_in_level_order():
+    in_ord = list(map(int, input("\nEnter Inorder : ").split(' ')))
+    level_ord = list(map(int, input("Enter LevelOrder : ").split(' ')))
+    n = len(in_ord)
+    if n != len(level_ord):
+        print("\nEnter Proper In & Post order Traversals")
+        return None
+    return add_node_in_level_order(in_ord, level_ord, 0,n-1, 0, n-1)     
+
+
+
+def main_tree_creation():
+    #root = create_Binary_tree_ask()
+    #root = create_Binary_tree_delimiter()
+    #root = create_Binary_tree_heap_form_array() # root = n, LC = 2*n+1 and RC = 2*n+2
+    #root = create_Binary_tree_in_pre_order() #we have give in order and pre order traversal we need to create the tree 
+    #root = create_Binary_tree_in_post_order() #we have give in order and post order traversal we need to create the tree 
+    root = create_Binary_tree_in_level_order() #we have give in order and level order traversal we need to create the tree 
+    print_tree(root)
+            
+            
+            
+#------------------------------------####-------------------------------------#
+#------------------------------------####-------------------------------------#
+def get_max_depth(root):
+    if root == None:
+        return 0
+    return 1+max(get_max_depth(root.left), get_max_depth(root.right))
+
+
+def level_order_traversal(root):
+    max_depth = get_max_depth(root)
+    print(max_depth)
+    return
+    
+
+
+def main():
+    root = create_Binary_tree_heap_form_array()
+    level_order_traversal(root)
+
+def rotate_right(root,last):
+        last.left = root.left
+        root.left = last.left.right
+        last.left.right = root
+    
+
+def rotate_left(root,last):
+        last.right = root.right
+        root.right = last.right.left
+        last.right.left = root
+
+
+def self_balance_tree(root,last,data):
+    if root == None:
+        return
+    if root.data == data:
+        if root.hl - root.hr > 2:
+            rotate_right(root,last)
+            root.hl = root.hl - 1
+        if root.hr - root.hl > 2:
+            rotate_left(root,last)
+            root.hr = root.hr - 1
+    
+
+def create_tree(root, data):
+    if root == None:
+        temp = node()
+        temp.data = data
+        return temp, 1
+    if root.data > data:
+        root.left, h = create_tree(root.left,data)
+        root.hl = h
+    else:
+        root.right, h = create_tree(root.right,data)
+        root.hr = h
+    if root.left!=None:
+        if root.left.hl - root.left.hr > 2 or root.left.hr - root.left.hl > 2:
+            self_balance_tree(root.left,root,root.left.data)
+    if root.right!=None:
+        if root.right.hl - root.right.hr > 2 or root.right.hr - root.right.hl > 2:
+            self_balance_tree(root.right,root,root.right.data)
+    return root, max(root.hl, root.hr)+1
+
+def get_next_pred(root):
+    if root == None:
+        return None
+    if root.left == None:
+        return root
+    return get_next_pred(root.left)
+    
+
+def delete_data_tree(root ,data):
+    if root == None:
+        print("\nFailed to Delete, Tree is Empty")
+        return None
+    print("\n",root.data,", ", data)
+    if root.data == data:
+        if root.left == None and root.right == None:
+            return None
+        if root.left != None and root.right == None:
+            return root.left
+        if root.right !=None and root.left == None:
+            return root.right
+        next_pre = get_next_pred(root.right)
+        root.data, next_pre.data = next_pre.data, root.data
+        root.right = delete_data_tree(root.right, data)
+        return root
+    if root.data > data:
+        root.left = delete_data_tree(root.left, data)
+    else:
+        root.right = delete_data_tree(root.right, data)
+    return root
+
+
+def main_binary_search_tree():
+    root = None
+    while True:
+        opt = int(input("\n\nExit         : 0\nCreate Tree  : 1\nAdd Data     : 2\nDelete Data  : 3\nPrint Tree   : 4\n"))
+        if opt == 0:
+            return
+        elif opt == 1:
+            flag = 0
+            if root !=None:
+                flag = int(input("Tree Already Created\nExit : 0\nRe-create  : 1"))
+            elif root == None or flag == 1:
+                data = list(map(int, input("Enter Data Array : ").split(' ')))
+                for i in range(len(data)):
+                    root,h = create_tree(root,data[i])
+                if root !=None:
+                    print("\nTree created sucessfully")               
+                else:
+                    print("\nFailed to create Tree")
+
+        elif opt == 2:
+            root = create_tree(root,int(input("Enter Data : ")))
+        elif opt == 3:
+            root = delete_data_tree(root,int(input("Enter Data : ")))
+        elif opt == 4:
+            print_tree(root)
+
+
+        
+if __name__ == "__main__":
+    while True:
+        #main_tree_creation()
+        #main()
+        main_binary_search_tree()

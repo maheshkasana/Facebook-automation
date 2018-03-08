@@ -1,0 +1,73 @@
+def print_mat(r,c,mat):
+    for i in range(r):
+        for j in range(c):
+            print("%4d"%mat[i][j],end=' ')
+        print('')
+    
+
+
+def swap_block(si,sj,li,lj,mat,r,c):
+    i = lj
+    j = c-li-1
+    if si==i and sj==j:
+        mat[si][sj],mat[li][lj] = mat[li][lj], mat[si][sj]
+        return
+    swap_block(si,sj,i,j,mat,r,c)
+    mat[i][j],mat[li][lj] = mat[li][lj], mat[i][j]
+    #print_mat(r,c,mat)
+
+
+def  matrix_rotation():
+    r = int(input("\nEnter R : "))
+    c = int(input("Enter C : "))
+    mat = [[i*10+j for i in range(c)] for j in range(r)]
+    for i in range(r):
+        for j in range(c):
+            print(mat[i][j],end=' ')
+        print(end='\n')
+    print("\nPrint Loop 90* Clockwise Rotated Matrix : ")
+    for i in range(c):
+        for j in range(r-1,-1,-1):
+            print("%3d"%mat[j][i],end=' ')
+        print('')
+    for i in range(int(r/2)):
+        k=c-i
+        for j in range(i,k,1):
+            swap_block(i,j,j,c-i-1,mat,r,c)
+    print("\nAfter Real Rotation : ")
+    print_mat(r,c,mat)
+    
+    
+def square_swap_block(si,sj,li,lj,mat,rc):
+    i = lj
+    j = rc-li-1
+    if si==i and sj==j:
+        mat[si][sj],mat[li][lj] = mat[li][lj], mat[si][sj]
+        return
+    square_swap_block(si,sj,i,j,mat,rc)
+    mat[i][j],mat[li][lj] = mat[li][lj], mat[i][j]
+    #print_mat(r,c,mat)
+
+
+
+
+def  square_matrix_rotation():
+    rc = int(input("\nEnter Square Matrix R/C : "))
+    mat = [[i*10+j for i in range(rc)] for j in range(rc)]
+    for i in range(rc):
+        for j in range(rc):
+            print(mat[i][j],end=' ')
+        print(end='\n')
+    
+    for i in range(int(rc/2)):
+        k=rc-i-1
+        for j in range(i,k,1):
+            square_swap_block(i,j,j,rc-i-1,mat,rc)
+    print("\nAfter Real Rotation : ")
+    print_mat(rc,rc,mat)
+    
+if __name__ == "__main__":
+    while True:
+        #matrix_rotation()
+        square_matrix_rotation()
+        

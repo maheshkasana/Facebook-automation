@@ -1,0 +1,68 @@
+class stack_temp:
+    def __init__(self):
+        self.stc=[]
+        self.min=-1
+
+    def push_data(self,data):
+        if len(self.stc)==0:
+            self.min=data
+            self.stc.append(data)
+            return
+        if data<self.min:
+            y=2*data-self.min
+            self.min,data=data,y
+        self.stc.append(data)
+            
+            
+    def print_stc_data(self):
+        print("\nStack Data : ")
+        l=len(self.stc)
+        for i in range(l-1,-1,-1):
+            print(self.stc[i])
+            
+    
+    def pop_data(self):
+        top_data=self.stc.pop()
+        if top_data>=self.min:
+            return top_data
+        data=2*self.min-top_data
+        self.min=data
+    
+    def get_min_data(self):
+        print("\nMinData : ",self.min)
+        
+        
+    
+
+def main():
+    print("\nWelcome to stack operations : ")
+    stc = stack_temp()
+    while True:
+        print("\nOptions : \n0 : Exit\n1 : Push\n2 : Pop\n3 : Print_stack Data\n4 : Get Minimum\n")
+        ch=int(input("\nEnter Option : "))
+        if ch==0:
+            break
+        elif ch==1:
+            data=int(input("\nEnter Data : "))
+            stc.push_data(data)
+        elif ch==2:
+            if len(stc.stc)==0:
+                print("\nStack is Empty")
+            else:
+                stc.pop_data()
+        elif ch==3:
+            if len(stc.stc)==0:
+                print("\nStack is Empty")
+            else:
+                stc.print_stc_data()
+        elif ch==4:
+            if len(stc.stc)==0:
+                print("\nStack is Empty")
+            else:
+                stc.get_min_data()
+             
+            
+
+
+if __name__ == "__main__":
+    main()

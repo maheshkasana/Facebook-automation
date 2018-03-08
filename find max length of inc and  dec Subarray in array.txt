@@ -1,0 +1,37 @@
+def max_min():
+    print("\nMax, Min, Max_2, Min_2 Arrange ")
+    lst=list(map(int,input("Enter Elements : ").split(' ')))
+    max_s=0
+    len_str = len(lst)
+    cnt=0
+    i=0
+    while i < len_str-1:
+        if lst[i] > lst[i+1]:
+            cnt = 1
+            while i < len_str-1 and lst[i] > lst[i+1]:
+                i += 1
+                cnt +=1
+                if cnt > max_s :
+                    max_s = cnt
+        else:
+            cnt = 1
+            while i < len_str-1 and lst[i] < lst[i+1]:
+                i += 1
+                cnt +=1
+                if cnt > max_s :
+                    max_s = cnt
+            while i < len_str-1 and lst[i] > lst[i+1]:
+                i += 1
+                cnt +=1
+                if cnt > max_s :
+                    max_s = cnt
+    print(max_s)
+
+            
+                
+                
+
+
+if __name__ == '__main__':
+    while True:
+        max_min()

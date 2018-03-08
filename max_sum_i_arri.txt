@@ -1,0 +1,85 @@
+def rotation_point(lst):
+    i,j =0, len(lst)-1
+    if lst[i]<lst[j]:
+        return 0
+    while i<=j:
+        k = int((i+j)/2)
+        if lst[k] > lst[0]:
+            i=k+1
+        elif lst[k-1] > lst[k]:
+            return k
+        else:
+            j=k-1
+    
+def binary_search(s,l,lst,ch):
+    if s>l:
+        return -1
+    k = int((s+l)/2)
+    if lst[k] == ch:
+        return k
+    if lst[k] > ch:
+        return binary_search(s,k-1,lst,ch)
+    else:
+        return binary_search(k+1,l,lst,ch)
+
+
+def binary_search_main(lst):
+    ch= int(input("Enter key to be search : "))
+    ri = rotation_point(lst)
+    s,l=0,0
+    if ch >= lst[0]:
+        s,l=0,ri-1
+    else:
+        s,l=ri,len(lst)-1
+    print(binary_search(s,l,lst,ch))
+
+
+
+def find_pair_sum(lst):
+    ch= int(input("Enter Sum to be Paired : "))
+    ri = rotation_point(lst)
+    s,l=ri,ri-1
+    sflag, lflag = 0,0
+    n = len(lst)
+    while True:
+        if (sflag == 1 or lflag == 1) and s >= l :
+            print("\nNo Pair")
+            break
+        if l < 0:
+            l=n-1
+            lflag = 1
+        if s >= n:
+            s = 0
+            sflag = 1
+        if lst[s]+lst[l] == ch:
+            print("\nFound Pair",lst[s],"+",lst[l])
+            break
+        elif lst[s]+lst[l] > ch:
+            l -= 1
+        else:
+            s += 1
+
+
+
+def max_sum_i_arri(lst):
+    sum_arr = sum(lst)
+    curr_sum=0
+    for i in range(len(lst)):
+        curr_sum += lst[i]*i
+    max_sum = curr_sum
+    for i in range(len(lst)):
+        curr_sum = curr_sum - (sum_arr-lst[i]) + lst[i]*(len(lst)-1)
+        if curr_sum > max_sum:
+            max_sum = curr_sum
+    print(max_sum)
+        
+
+
+    
+if __name__ == "__main__":
+    while True:
+        lst=list(map(int,input("\nEnter Array Elements : ").split(' ')))
+        #binary_search_main(lst)
+        #find_pair_sum(lst)
+        max_sum_i_arri(lst)   
+            

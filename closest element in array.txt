@@ -1,0 +1,88 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
+int getClosest(vector<int> arr, int val1, int val2, int target)
+{
+    if (target - arr[val1] >= arr[val2] - target)
+        return val2;
+    else
+        return val1;
+}
+
+int findClosest(vector<int> arr, int n, int target)
+{
+    if (target <= arr[0])
+        return 0;
+    if (target >= arr[n - 1])
+        return n - 1;
+    int i = 0, j = n, mid = 0;
+    while (i < j)
+    {
+        mid = (i + j) / 2;
+        if (arr[mid] == target)
+            return mid;
+        if (target < arr[mid])
+        {
+            if (mid > 0 && target > arr[mid - 1])
+                return getClosest(arr,mid - 1, mid, target);
+            j = mid;
+        }
+        else
+        {
+            if (mid < n - 1 && target < arr[mid + 1])
+                return getClosest(arr, mid, mid + 1, target);
+            i = mid + 1; 
+        }
+    }
+   return mid;
+}
+ 
+int main() {
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        int n;
+        scanf("%d",&n);
+        vector<pair<int,int> > sg_lst;     
+        for(register int i=0;i<n;i++)
+        {
+             int x,y;
+            scanf("%d%d",&x,&y);
+            sg_lst.push_back(make_pair(x,y));
+        }
+        int q;
+        scanf("%d",&q);
+        while(q--)
+        {
+            int xn;
+            scanf("%d",&xn);
+            vector<int> xn_lst;
+            for(auto j = 0; j<xn;j++)
+            {
+                int x;
+                scanf("%d",&x);
+                xn_lst.push_back(x);
+            }
+            vector<int> seg_good(n+2,0);
+            for(register int i = 0; i<xn;i++)
+                seg_good[xn_lst[i]] = 1;
+            for(register int i = 1; i<n+2;i++)
+                seg_good[i] += seg_good[i-1];
+            int ts = 0;
+            for(register int i = 0; i<n;i++)
+            {   
+                printf("D %d : C %d\n",sg_lst[i].second,xn_lst[findClosest(xn_lst,xn,sg_lst[i].second)]);
+                printf("D %d : C %d\n",sg_lst[i].first,xn_lst[findClosest(xn_lst,xn,sg_lst[i].first)]);
+                
+                int cn = seg_good[sg_lst[i].second]-seg_good[sg_lst[i].first - 1];
+                if(cn%2 !=0)
+                    ts+=1;
+            }
+            printf("%d\n",ts);
+        }
+    }
+	return 0;
+}

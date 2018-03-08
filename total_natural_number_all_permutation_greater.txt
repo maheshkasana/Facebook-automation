@@ -1,0 +1,35 @@
+def calculate_number(n):
+    if n<=9:
+        return n
+    stc=[i for i in range(1,10)]
+    print(stc)
+    rslt=9
+    while len(stc)!=0:
+        tp= stc[len(stc)-1]
+        stc.pop()
+        for j in range(tp%10, 10 ,1):
+            k = tp*10+j
+            if k <= n:
+                rslt+=1
+                stc.append(k)
+    return rslt
+    
+    
+    
+
+
+
+            
+        
+
+def main():
+    n=int(input("\nEnter The N : "))
+    tot_n = calculate_number(n)
+    print("\nTotal Natural Number : ",tot_n)
+
+
+
+    
+if __name__ == '__main__':
+    while True:
+        main()

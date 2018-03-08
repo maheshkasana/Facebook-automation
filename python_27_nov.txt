@@ -1,0 +1,387 @@
+class node:
+    def __init__(self):
+        self.s=-1
+        self.l=-1
+
+    def set_data(self,s,l):
+        self.s=s
+        self.l=l
+
+def print_node(x,y):
+    print("Data :: x : ",x,", y : ",y)
+
+
+class stack:
+    def __init__(self):
+        self.stack=[]
+    def push_data(self,obj):
+        self.stack.append(obj)
+    def pop_data(self):
+        return self.stack.pop()
+    def is_empty(self):
+        return self.stack==[]
+    def total_items(self):
+        return len(self.stack)
+    def print_stack_data(self):
+        print("\nData in Stack : ")
+        if len(self.stack) == 0:
+            print("\nStack is empty\n")
+            return
+        for i in self.stack:
+            print_node(i.s,i.l)
+
+
+def push_data(stc):
+    print("\nEnter Data")
+    s = int(input("X : "))
+    l = int(input("y : "))
+    nod=node()
+    nod.s=s
+    nod.l=l
+    print("Pushing Data : ")
+    print_node(nod.s,nod.l)
+    stc.push_data(nod)
+    
+def pop_data(stc):
+    if stc.is_empty():
+        return -1,-1
+    else:
+        tem=stc.pop_data()
+        return tem.s,tem.l
+
+def print_stack(stc):
+    stc.print_stack_data()
+
+    
+    
+
+    
+def main_two():
+    print("Welcome To stack Analysis : ")
+    stc = stack();
+    while True:
+        print("\n\nOption : \n0 : Exit\n1 : Push Data\n2 : Pop Data\n3 : Print Stack\n")
+        ch = int(input())
+        if ch == 0:
+            return
+        elif ch == 1:
+            push_data(stc)
+        elif ch == 2:
+            x,y=pop_data(stc)
+            print_node(x,y)
+        elif ch == 3:
+            print_stack(stc)
+            
+
+
+def print_array(main_array):
+    if len(main_array) == 0:
+        print("\nArray is Empty\n")
+        return
+    print("Array Elements : ")
+    for i in range(len(main_array)):
+        print(i+1," : ",main_array[i])
+
+def add_data_array(main_array):
+    print("Enter Data : ")
+    data = int(input())
+    main_array.append(data)
+
+def remove_data_array(main_array):
+    if len(main_array) == 0:
+        print("List is Empty")
+        return
+    print("Enter Data you want to remove from list")
+    data = int(input())
+    if data in main_array:
+        main_array.remove(data)
+    else:
+        print("Data dosent present in the list")
+
+        
+def update_array(main_array):
+    print("Update Function :\n1 : Add Data\n2 : Remove Data\n")
+    ch = int(input())
+    if ch == 1:
+        add_data_array(main_array)
+        print_array(main_array)
+    elif ch == 2:
+        remove_data_array(main_array)
+        print_array(main_array)
+    
+def print_status_returned(pos):
+       if pos <= -1:
+            print("\nData Not Present in Array")
+       else:
+            print("\nData Present on : ", pos+1, ", index")
+
+def linear_search_array(main_array, data):
+    for i in range(len(main_array)):
+        if main_array[i] == data:
+            return i
+    return -1    
+
+def binary_search_array_normal(main_array, data):
+    i=0
+    j= len(main_array)-1
+    while i<=j:
+        k = int((i+j)/2)
+        if main_array[k] == data:
+            return k
+        elif data < main_array[k]:
+            j=k-1
+        else:
+            i=k+1
+    return -1
+
+
+def binary_search_array_recursive(main_array, data,s,l):
+    if s>l:
+        return -1
+    m = int((s+l)/2)
+    if main_array[m]==data:
+        return m
+    if main_array[m] > data:
+        return binary_search_array_recursive(main_array, data,s,m-1)
+    else:
+        return binary_search_array_recursive(main_array, data,m+1,l)
+
+def searching_methods(main_array):
+    if len(main_array) == 0:
+        print("List is Empty")
+        return
+    print("Enter Data to be search  : ")
+    data= int(input())
+    print("\nby Which Method you want to search :\n1 : Linear Search O(n)\n2 : Binary Search log(n)\n")
+    ch= int(input())
+    if ch == 1:
+        print_status_returned(linear_search_array(main_array, data))
+    elif ch == 2:
+        print("\nNormal : ")
+        print_status_returned(binary_search_array_normal(main_array, data))
+        print("Recursive : ")
+        s=0
+        l=len(main_array)
+        print_status_returned(binary_search_array_recursive(main_array, data,s,l-1))
+                              
+def selection_sort(main_array):
+    l = len(main_array)
+    k=0
+    for i in range(l):
+        min = i
+        for j in range(i+1,l,1):
+            if main_array[j] < main_array[min]:
+                min=j
+        if min != i:
+            main_array[i], main_array[min]= main_array[min], main_array[i]
+            k=k+1     
+    print("\nSelection Sort, Total Swap : ",k)
+
+
+def bubble_sort(main_array):
+    l = len(main_array)
+    k=0
+    for i in range(l):
+        for j in range(l):
+            if main_array[i]<main_array[j]:
+                main_array[i],main_array[j]=main_array[j],main_array[i]
+                k=k+1
+    print("\nBubble Sort, Total Swap : ",k)
+
+
+def insertion_sort(main_array):
+    l = len(main_array)
+    k=0
+    for i in range(1,l,1):
+        j=i
+        data = main_array[i]
+        while j-1 >= 0:
+            if main_array[j-1]>main_array[j]:
+                main_array[j],main_array[j-1]=main_array[j-1],main_array[j]
+                k=k+1
+            j=j-1    
+    print("\nInsertion Sort, Total Swap : ",k)
+            
+                
+        
+def merge_sort(main_array,s,l):
+    if s>=l :
+        return 0
+    m=int((s+l)/2)
+    merge_sort(main_array,s,m)
+    merge_sort(main_array,m+1,l)
+
+    temp_arr=[]
+    del temp_arr[:]
+    i,j=s,m+1
+    while i<=m and j<=l:
+        if main_array[i] <= main_array[j]:
+            temp_arr.append(main_array[i])
+            i=i+1
+        else:
+            temp_arr.append(main_array[j])
+            j=j+1    
+    while i<=m:
+        temp_arr.append(main_array[i])
+        i=i+1
+    while j<=l:
+        temp_arr.append(main_array[j])
+        j=j+1
+    j=s
+    for i in temp_arr:
+       main_array[j]=i
+       j=j+1
+
+            
+def quick_sort(main_array,s,l):
+    if s>=l:
+        return
+    p=main_array[s]
+    i=s
+    j=l
+    while(i<=j):
+        while(i<=l and main_array[i]<=p):
+            i=i+1
+        while(main_array[j]>p and j>=i):
+            j=j-1
+        if i<j:
+            main_array[j],main_array[i]=main_array[i],main_array[j]
+    if j>s:
+        main_array[s],main_array[j]=main_array[j],main_array[s]
+    quick_sort(main_array,s,j-1)
+    quick_sort(main_array,j+1,l)
+    
+
+
+def count_sort(main_array):
+    mn, mx, ln=min(main_array), max(main_array), len(main_array)
+    aux_len = mx-mn+1
+    aux=[0]*aux_len
+    sort_arr=[]
+    for i in main_array:
+        ind = i - mn
+        aux[ind] = aux[ind] + 1
+    for i in range(1,len(aux),1):
+        aux[i]=aux[i]+aux[i-1]
+    for i in range(len(aux)):
+        data = i+mn
+        if i == 0:
+            s,l=0,aux[0]
+        else:
+            s,l=aux[i-1],aux[i]        
+        for j in range(s,l,1):
+            sort_arr.append(data)
+    main_array=sort_arr
+    print("Sorted Array : ",main_array)
+
+
+def radix_sort(main_array):
+    temp_multi=[None]*10
+    for _ in range(len(temp_multi)):
+        temp_multi[_]=[]
+    mx=max(main_array)
+    j=1
+    while mx%10 !=0:
+        mx=int(mx/10)
+        j=j*10
+        for i in main_array:
+            k=int((i%j)/(j/10))
+            temp_multi[k].append(i)
+        k=0    
+        for i in temp_multi:
+            for m in i:
+                main_array[k]=m
+                k=k+1
+            del i[:]
+
+def heapfy(main_array,n,i):
+    j=i*2+1
+    k=i*2+2
+    l=i
+    if j<=n and main_array[j]>main_array[l]:
+        l=j
+    if k<=n and main_array[k]>main_array[l]:
+        l=k
+    if l!=i:
+        main_array[i],main_array[l]=main_array[l],main_array[i]
+        heapfy(main_array,n,l)
+
+def heap_sort(main_array):
+    n=len(main_array)
+    #Heapfy re bhai
+    for i in range(int(n/2),-1,-1):
+        heapfy(main_array,n-1,i)
+    for i in range(n-1,-1,-1):
+        main_array[0],main_array[i]=main_array[i],main_array[0]
+        heapfy(main_array,i-1,0)
+    print(main_array)    
+        
+        
+          
+def sorting_methods(main_array):
+    print("Welcome To Sorting Methods : ")
+    if len(main_array) == 0:
+        print("Array is Empty")
+        return
+    print("Options :\n1 : Selection Sort\n2 : Bubble Sort\n3 : Insertion Sort\n4 : Merge Sort\n5 : Quick Sort\n6 : Count Sort\n\
+7 : Radix Sort\n8 : Heap Sort\n")
+    ch=int(input())
+    if ch == 1:
+        selection_sort(main_array)
+    elif ch == 2:
+        bubble_sort(main_array)
+    elif ch == 3:
+        insertion_sort(main_array)
+    elif ch == 4:
+        print("Recursive, with Extra Space : ")
+        merge_sort(main_array,0,len(main_array)-1)
+    elif ch == 5:
+        print("Quick Sort : ")
+        quick_sort(main_array,0,len(main_array)-1)
+    elif ch == 6:
+        print("Count Sort : ")
+        count_sort(main_array)
+    elif ch == 7:
+        print("Radix Sort : ")
+        radix_sort(main_array)
+    elif ch == 8:
+        print("Heap Sort : ")
+        heap_sort(main_array)
+        
+
+
+def main():
+    print("Welcome to Searching And Sorting Era \n")
+    main_array=[]
+    temp_main=[]
+    print("Enter The N : ")
+    elem=int(input())
+    #print("Enter the Element of Array by Space seperated : ")
+    #main_array=list(map(int,input().split(' ')))
+    #print("Entred Array : ",main_array) 
+    print("Enter the Element of Array : ")
+    for i in range(elem):
+        main_array.append(int(input()))
+    print("Entred Array : ",main_array)
+    temp_main=main_array[:]
+    while True:
+        print("\n\nOptions  :\n0 : Exit\n1 : Searching\n2 : Sorting\n3 : Print Array\n4 : Update Array\n5 : Get Origional Array\n")
+        ch=int(input())
+        if ch == 0:
+            return;
+        elif ch == 1:
+            searching_methods(main_array)
+            print_array(main_array)
+        elif ch == 2 :
+            sorting_methods(main_array)
+            print_array(main_array)
+        elif ch == 3:
+            print_array(main_array)
+        elif ch == 4:
+            update_array(main_array)
+        elif ch == 5:
+            main_array=temp_main[:]
+            print_array(main_array)            
+            
+if __name__ == "__main__":
+    main()

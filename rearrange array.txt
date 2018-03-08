@@ -1,0 +1,11 @@
+def rearrange_array():
+    lst=list(map(int,input("Enter Elements : ").split(' ')))
+    max_el = max(lst)+1
+    for i in range(len(lst)):
+        val = (lst[i]%max_el)
+        lst[val] += i*max_el
+    print([int(lst[i]/max_el) for i in range(len(lst))])
+                
+if __name__ == '__main__':
+    while True:
+        rearrange_array()

@@ -1,0 +1,75 @@
+class node():
+    def __init__(self,ch):
+        self.char=ch
+        self.next=None
+        self.prev=None
+
+def add_node(head,last,pointer,ch):
+    if head==None or last == None:
+        head = node(ch)
+        last = head
+        pointer[ord(ch)]=head
+    else:
+        last.next=node(ch)
+        last.next.prev=last
+        last=last.next
+        pointer[ord(ch)]=last
+    return head,last
+            
+def delete_node(head,last,pointer,ch):
+    tmp=pointer[ord(ch)]
+    pointer[ord(ch)]=None
+    if tmp == head and tmp == last:
+        return None,None
+    if tmp == head:
+        head = head.next
+        head.prev = None
+        return head,last 
+    elif tmp == last:
+        last=last.prev
+        last.next=None
+        return head,last
+    else:
+        tmp.prev.next=tmp.next
+        tmp.next.prev=tmp.prev
+        return head,last
+    
+        
+def print_linklist(head,last):
+    print("\nLinklist Forward : ")
+    while head!=None:
+        print(head.char,end=' ')
+        head=head.next
+    print("\nLinklist backword : ")
+    while last!=None:
+        print(last.char,end=' ')
+        last=last.prev
+    print('\n')
+    
+
+
+def first_non_repeting_char():
+    print("\nFirst Non Repeting Char")
+    str=input("\nEnter Stream : ")
+    head=None
+    last=None
+    count = [0]*256
+    pointer = [None]*256
+    for i in str:
+        #print_linklist(head,last)
+        #print("i : ",i)
+        if count[ord(i)] == 0:
+            head,last=add_node(head,last,pointer,i)
+        else:
+            if pointer[ord(i)]!=None:
+                head,last=delete_node(head,last,pointer,i)
+        count[ord(i)]+=1
+        if head!=None:
+            print(head.char)
+        else:
+            print("-1")
+
+        
+if __name__ == '__main__':
+    while True:
+        first_non_repeting_char()

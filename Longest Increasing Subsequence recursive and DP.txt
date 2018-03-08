@@ -1,0 +1,40 @@
+def LIS(arr,p, ind, n):
+    if ind >= n or (ind+1 == n-1 and arr[ind+1]<arr[p]):
+        return 0
+    inc = 0
+    if ind < n and (p == -1 or arr[ind] > arr[p]):
+        inc = 1 + LIS(arr,ind,ind+1,n)
+    ec_inc = LIS(arr,p,ind+1,n)
+    return max(inc, ec_inc)
+        
+def print_mat(mat, n):
+    print("\nMat : ")
+    for i in  range(n+2):
+        print(mat[i])
+            
+
+
+def LIS_NON_REC(arr,n):
+    mat = [[0 for i in range(n+1)] for j in range(n+2)]
+    #print(mat)
+    for i in range(n, 0, -1):
+        for j in range(n-1, i-2, -1):
+            if arr[i-1] <= arr[j]:
+                mat[i][j] = 1
+    #print_mat(mat,n)
+    for i in range(n, -1, -1):
+        for j in range(n-1, i-1, -1):
+            mat[i][j] = max(mat[i][j]+mat[i+1][j+1], mat[i][j+1])
+    #print_mat(mat,n)
+    print("\nLongest Increasing Subsequence : ",mat[0][0]+1)
+
+    
+def main():
+    arr = list(map(int, input("Enter Array Elements : ").split(', ')))
+    ln = len(arr)
+    #print("\nLongest Increasing SubSequence : ", max(1+LIS(arr,0,1,ln),LIS(arr,-1,1,ln)))
+    LIS_NON_REC(arr,ln)
+    
+if __name__ == "__main__":
+    while True:
+        main()

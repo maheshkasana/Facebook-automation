@@ -1,0 +1,179 @@
+class Queue:
+    def __init__(self):
+        self.que=[]
+
+
+    def push(self,data):
+        self.que.insert(0,data)
+
+
+    def push_front(self,data):
+        self.que.insert(0,data)
+
+
+    def push_back(self,data):
+        self.que.append(data)
+        
+    
+    
+    def size(self):
+        return len(self.que)
+        
+    
+    def pop(self):
+        if self.size():
+            self.que.pop()
+        else:
+            print("Queue is empty")
+            
+
+    def pop(self,i):
+        if self.size():
+            self.que.pop(i)
+        else:
+            print("Queue is empty")
+
+
+    def left_top(self):
+        if self.size():
+            return self.que[0]
+        return -1
+
+
+    def right_top(self):
+        if self.size():
+            return self.que[len(self.que)-1]
+        return -1
+
+    def Print(self):
+        print(self.que)
+            
+            
+
+        
+        
+
+
+
+def main_stack():
+    print("\nImplement The Queue Using Stack")
+    stc_one=[]
+    stc_two=[]
+    while True:
+        print("\nQueue : ",stc_one)
+        ch=int(input("\nExit : 0\nPush : 1\nPop  : 2\n"))
+        if ch==0:
+            break
+        if ch==1:
+            stc_one.append(int(input("\nEnter Data : ")))
+        else:
+            while len(stc_one)!=0:
+                stc_two.append(stc_one.pop())
+            if len(stc_two)==0:
+                print("Queue is Empty")
+            else:
+                print(stc_two.pop())
+            while len(stc_two)!=0:
+                stc_one.append(stc_two.pop())
+            
+
+def LRU():
+    print("\nLeast Recently Used Cache")
+    lst=map(int,input("Enter Page Numbers : ").split(' '))
+    pf=int(input("Enter Page Frame Size : "))
+    que=Queue()
+    for i in lst:
+        if que.size()>=pf:
+            que.pop()
+        que.push(i)
+        que.Print()
+            
+
+
+def test_queue():
+    que=Queue()
+    while True:
+        ch=int(input("\nExit       : 0\nPush       : 1\nPop        : 2\nLeft Top   : 3\nRight Top  : 4\nSize       : 5\nPrint      : 6\n"))
+        if ch==0:
+            break
+        elif ch==1 :
+            que.push(int(input("\nData : ")))
+        elif ch ==2 :
+            que.pop()
+        elif ch==3:
+            print(que.left_top())
+        elif ch==4:
+            print(que.right_top())
+        elif ch==5:
+            print(que.size())
+        que.Print()
+            
+
+
+def sliding_window_maximum():
+    print("\nSliding Window")
+    lst=list(map(int,input("Enter Numbers : ").split(' ')))
+    k=int(input("\nEnter K : "))
+    que=Queue()
+    for i in range(0,k,1):
+        while que.size()!=0 and lst[que.right_top()]<= lst[i]:
+            que.pop(que.size()-1)
+        que.push_back(i)
+    for i in range(k,len(lst),1):
+        print(lst[que.left_top()],end=' ')
+        while que.size() !=0 and que.left_top()<=i-k :
+            que.pop(0)
+        while que.size()!=0 and lst[que.right_top()]<= lst[i]:
+            que.pop(que.size()-1)
+        que.push_back(i)
+    print(lst[que.left_top()],end=' ')
+            
+
+def sum_min_max_window():
+    print("\nSum of Min and Max element of subarray of Size K ")
+    lst=list(map(int,input("\nEnter Elements : ").split(' ')))
+    k = int(input("\nEnter K : "))
+    que1=Queue()
+    que2=Queue()
+    max_a=[]
+    min_a=[]
+    for i in range(k):
+        while que1.size()!=0 and lst[que1.right_top()]<=lst[i]:
+            que1.pop(que1.size()-1)
+        que1.push_back(i)
+    for i in range(k,len(lst),1):
+        max_a.append(lst[que1.left_top()])
+        while que1.size()!=0 and que1.left_top()<=i-k:
+            que1.pop(0)
+        while que1.size()!=0 and lst[que1.right_top()]<=lst[i]:
+            que1.pop(que1.size()-1)
+        que1.push_back(i)
+    max_a.append(lst[que1.left_top()])
+    print("\nMax Array : ",max_a)
+    for i in range(k):
+        while que2.size()!=0 and lst[que2.right_top()]>=lst[i]:
+            que2.pop(que2.size()-1)
+        que2.push_back(i)
+    for i in range(k,len(lst),1):
+        min_a.append(lst[que2.left_top()])
+        while que2.size()!=0 and que2.left_top()<=i-k:
+            que2.pop(0)
+        while que2.size()!=0 and lst[que2.right_top()]>= lst[i]:
+            que2.pop(que2.size()-1)
+        que2.push_back(i)
+    min_a.append(lst[que2.left_top()])
+    print("\nMin Array : ",min_a)
+    print("\nSum of Max and Min of Subarray : ",[max_a[i]+min_a[i] for i in range(len(max_a))])
+    
+        
+                         
+        
+        
+
+        
+if __name__ == '__main__':
+    #main_stack()
+    #LRU()
+    #test_queue()
+    #sliding_window_maximum()
+    sum_min_max_window()
